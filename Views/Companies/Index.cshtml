@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Buy_Stocks_Final_Project.Models.Company>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<h1>Companies </h1>
+
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("stock_admin"))
+{
+    <p>
+
+        <a class="btn btn-primary" asp-action="Create">Add New Company</a>
+        
+    </p>
+}
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+
+
+            <div class="col-xl-4 col-md-6 col-lg-4">
+                <div class="card text-center  border-secondary mb-3" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.CompanyName</h5>
+                        <p class="card-text">Available Stocks: @item.AvailableStocks</p>
+                        <p class="card-text">Stock Price: $ @item.StockPrice</p>
+
+                    </div>
+                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">View Company</a>
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("stock_admin"))
+                    {
+                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-primary" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                </div>
+
+
+            </div>
+
+
+
+
+        }
+    </div>

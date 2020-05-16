@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Buy_Stocks_Final_Project.Models.StocksPayment>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Stock Payments</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Company)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StocksBuyer)
+            </th>
+            <th>
+               Number of purchased stocks
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StocksBuyer.EmailAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfStocks)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
